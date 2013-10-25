@@ -17,6 +17,8 @@ group :development, :test do
   gem 'spork-rails', github: 'sporkrb/spork-rails'
   gem 'guard-spork', '1.5.0'
   gem 'childprocess', '0.3.9'
+
+  gem 'byebug'
 end
 
 group :test do
