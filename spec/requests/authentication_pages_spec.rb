@@ -70,7 +70,7 @@ describe "Authentication" do
 
       describe "when attempting to visit a protected page" do
         before do
-          visit edit_user_path( user)
+          visit edit_user_path(user)
           fill_in "Email", with: user.email
           fill_in "Password", with: user.password
           click_button "Sign in"
@@ -94,6 +94,17 @@ describe "Authentication" do
           it "should render the default (profile) page" do
             expect(page).to have_title(user.name)
           end
+        end
+      end
+
+      describe "in the micropost controller" do
+        describe "submitting create action" do
+          before { post micropost_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+        describe "submitting create action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          specify { expect(response).to redirect_to(signin_path) }
         end
       end
     end
