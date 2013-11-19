@@ -99,7 +99,7 @@ describe "Authentication" do
 
       describe "in the micropost controller" do
         describe "submitting create action" do
-          before { post micropost_path }
+          before { post microposts_path }
           specify { expect(response).to redirect_to(signin_path) }
         end
         describe "submitting create action" do
