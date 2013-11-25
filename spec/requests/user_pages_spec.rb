@@ -14,7 +14,7 @@ describe "User Pages" do
     it { should have_title('All users') }
     it { should have_content('All users') }
 
-    describe "pagenation" do
+    describe "pagination" do
       before(:all) { 30.times { FactoryGirl.create(:user) } }
       after(:all) { User.delete_all }
 

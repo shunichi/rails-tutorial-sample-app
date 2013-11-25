@@ -38,4 +38,42 @@ describe "MicropostPages" do
       end
     end
   end
+
+  describe "micropost count" do
+    before { FactoryGirl.create(:micropost, user: user) }
+
+    describe "with single micropost" do
+      before { visit root_path }
+
+      it { should have_content('1 micropost') }
+    end
+
+    describe "with multiple microposts" do
+      before do
+        FactoryGirl.create(:micropost, user: user)
+        visit root_path
+      end
+
+      it { should have_content('2 microposts') }
+    end
+  end
+
+  describe "micrpost pagination" do
+    before { 40.times { FactoryGirl.create(:micropost, user: user)}}
+    before { visit root_path }
+
+    it { should have_selector('div.pagination') }
+
+    it "should list each micropost" do
+      user.feed.paginate(page: 1).each do |mp|
+        expect(page).to have_selector("li##{mp.id}", text: mp.content )
+      end
+    end
+
+    it "should not list 2nd page's microposts" do
+      user.feed.paginate(page: 2).each do |mp|
+        expect(page).not_to have_selector("li##{mp.id}")
+      end
+    end
+  end
 end
