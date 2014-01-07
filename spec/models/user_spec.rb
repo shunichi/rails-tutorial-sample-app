@@ -195,14 +195,14 @@ describe User do
       its(:followed_users) { should_not include(other_user) }
     end
 
-    describe "destory followed user" do
+    describe "destorying followed user" do
       before { other_user.destroy }
       it "should not have destoryed user" do
         expect(@user.followed_users).not_to include(other_user)
       end
     end
 
-    describe "destroy follower" do
+    describe "destroying follower" do
       before { @user.destroy }
       it "should not have destroyed follower" do
         expect(other_user.followers).not_to include(@user)
